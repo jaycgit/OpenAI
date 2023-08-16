@@ -1,7 +1,7 @@
 import requests
 
 api_key = '# Replace with your actual API key'  
-api_endpoint = 'https://api.openai.com/v1/engines/davinci/completions'
+api_endpoint = 'https://api.openai.com/v1/engines/text-davinci-003/completions'
 
 def generate_response(prompt):
     headers = {
