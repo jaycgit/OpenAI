@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech Recognition</title>
+</head>
+<body>
+    <h1>Ooie Speech Recognition</h1>
+    <button id="startButton">Start Recording</button>
+    <div id="output"></div>
+
+    <script>
+        const startButton = document.getElementById("startButton");
+        const outputDiv = document.getElementById("output");
+
+        // Check if the browser supports speech recognition
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+            recognition.continuous = true; // Continuous speech recognition
+
+            recognition.onstart = () => {
+                outputDiv.innerHTML = "Ooie is Listening...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[event.results.length - 1][0].transcript;
+                outputDiv.innerHTML = `You said: ${transcript}`;
+            };
+
+            recognition.onerror = (event) => {
+                outputDiv.innerHTML = "Error occurred in recognition: " + event.error;
+            };
+
+            startButton.addEventListener("click", () => {
+                recognition.start();
+            });
+        } else {
+            outputDiv.innerHTML = "Speech recognition is not supported in this browser.";
+        }
+    </script>
+</body>
+</html>
