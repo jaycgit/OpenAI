@@ -1,3 +1,8 @@
+# Author: Jay Crispo
+# Description: Flask app for sending speech to ChatGPT using OpenAI's GPT-3.
+# Date: 9/21/2023
+
+
 from flask import Flask, request, render_template, jsonify
 import openai
 from capture_speech import capture_speech  # Import capture_speech function
@@ -16,7 +21,7 @@ def send_to_chatgpt():
 
         if recognized_text:
             # Initialize OpenAI API client (replace with your API key)
-            openai.api_key = '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'
+            openai.api_key = 'your OpenAI API key'
 
             # Send recognized text to ChatGPT API without a fixed prompt
             response = openai.Completion.create(

@@ -22,4 +22,4 @@ To get a local copy of this project up and running, follow these steps:
 1. Clone the Repository:
 
    ```bash
-   git clone https://github.com/your-username/speech-recognition-web-app.git
+   git clone https://github.com/jaycgit/OpenAI/tree/main/Voice%20Interface

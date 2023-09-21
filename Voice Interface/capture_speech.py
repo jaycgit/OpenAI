@@ -1,3 +1,7 @@
+# Author: Jay Crispo
+# Description: Flask app for sending speech to ChatGPT using OpenAI's GPT-3.
+# Date: 9/21/2023
+
 import logging
 import speech_recognition as sr
 
@@ -14,7 +18,7 @@ def capture_speech():
             logging.info("Say something...")
 
             recognizer.adjust_for_ambient_noise(source)  # Adjust for background noise
-            audio = recognizer.listen(source, timeout=20)  # Listen for audio for up to 10 seconds
+            audio = recognizer.listen(source, timeout=10)  # Listen for audio for up to 10 seconds
 
         # Use CMU Sphinx to recognize speech (offline)
         text = recognizer.recognize_sphinx(audio)
