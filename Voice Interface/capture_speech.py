@@ -1,5 +1,5 @@
 # Author: Jay Crispo
-# Description: Flask app for sending speech to ChatGPT using OpenAI's GPT-3.
+# Description: Speech recognition script using the SpeechRecognition library and CMU Sphinx.
 # Date: 9/21/2023
 
 import logging
