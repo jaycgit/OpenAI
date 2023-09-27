@@ -1,7 +1,6 @@
 # Author: Jay Crispo
 # Description: Speech recognition script using the SpeechRecognition library and CMU Sphinx.
-# Generated with assistance from ChatGPT
-# Date: 9/21/2023
+# Generated with assistance from OpenAI
 
 import logging
 import speech_recognition as sr

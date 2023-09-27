@@ -1,6 +1,6 @@
 # Author: Jay Crispo
 # Description: Flask app for sending speech to ChatGPT using OpenAI's GPT-3.
-#Generated with assistance from ChatGPT
+#Generated with assistance from OpenAI
 # Date: 9/21/2023
 
 
