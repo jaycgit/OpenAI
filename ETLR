@@ -1,0 +1,72 @@
+import requests
+import pandas as pd
+import spacy
+from collections import defaultdict
+
+# Load spaCy language model (use a small model for efficiency)
+nlp = spacy.load("en_core_web_sm")
+
+# Step 1: Fetch Data from ProPublica API (or similar free API)
+def fetch_data_from_api(api_url, headers):
+    response = requests.get(api_url, headers=headers)
+    if response.status_code == 200:
+        return response.json()  # Return JSON data if successful
+    else:
+        print(f"Error: Unable to fetch data, status code: {response.status_code}")
+        return None
+
+# ProPublica API example: URL for corporate/financial data
+API_URL = "https://api.propublica.org/some-endpoint"  # Placeholder
+HEADERS = {"Authorization": "Bearer YOUR_API_KEY"}  # Add your ProPublica API key here
+
+# Step 2: Extract and Store Data
+def extract_and_store_data(data):
+    records = []
+    # Assuming the data is a list of transactions or filings
+    for record in data['results']:
+        company = record.get('company_name')
+        vendor = record.get('vendor_name')
+        amount = record.get('amount')
+        records.append((company, vendor, amount))
+    # Convert to a DataFrame for easy processing
+    df = pd.DataFrame(records, columns=['Company', 'Vendor', 'Amount'])
+    return df
+
+# Step 3: Pattern Detection
+def detect_patterns(df):
+    relationship_dict = defaultdict(list)
+    
+    # Group by company and vendor to detect frequent relationships
+    for _, row in df.iterrows():
+        company = row['Company']
+        vendor = row['Vendor']
+        relationship_dict[company].append(vendor)
+    
+    # Simple pattern detection: list of vendors a company interacts with
+    patterns = {}
+    for company, vendors in relationship_dict.items():
+        if len(set(vendors)) > 1:  # If more than one unique vendor
+            patterns[company] = list(set(vendors))
+    return patterns
+
+# Step 4: Generate Report
+def generate_report(patterns):
+    print("Potential Patterns/Relationships Detected:")
+    for company, vendors in patterns.items():
+        print(f"Company: {company} interacts with Vendors: {', '.join(vendors)}")
+    print("\nReport generation complete.")
+
+# Execute POC steps
+if __name__ == "__main__":
+    # Step 1: Fetch data
+    data = fetch_data_from_api(API_URL, HEADERS)
+    
+    if data:
+        # Step 2: Extract and store data
+        df = extract_and_store_data(data)
+        
+        # Step 3: Detect patterns
+        patterns = detect_patterns(df)
+        
+        # Step 4: Generate report
+        generate_report(patterns)
